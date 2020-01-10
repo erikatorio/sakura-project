@@ -26899,17 +26899,17 @@ let users = [
     {
         username: 'Nini',
         password: '123',
-        group: 'A'
+        group: 'Group 1'
     },
     {
         username: 'Ricky',
         password: '1234',
-        group: 'B'
+        group: 'Group 2'
     },
     {
         username: 'Kara',
         password: '12345',
-        group: 'C'
+        group: 'Group 3'
     },
 ];
 
