@@ -47,12 +47,14 @@ $(document).ready(function() {
       var query = users.where("username", "==", username).where("password", "==", password).get()
       .then(function(querySnapshot) {
         if(!querySnapshot.empty) {
-            var url ="http://localhost:5000/home.html"
-            $(location).attr('href', url);
-            console.log("logged in");
+            // var url ="http://localhost:5000/home.html"
+            // $(location).attr('href', url);
+            querySnapshot.forEach(function(doc) {
+                document.cookie = "group_value="+encodeURIComponent(doc.data().group);
+                console.log(doc.data().group);
+            });
         } else {
             $('#invalid-credentials').append("<div class=\"alert alert-danger\" role=\"alert\">Invalid Credentials. Please Try Again. </div>");
-            console.log("not logged in");
         }
         });
       
@@ -71,8 +73,13 @@ $(document).ready(function() {
     //   .catch(function(error) {
     //       console.log("Error getting documents: ", error);
     //   });
-      
   });
+});
+
+$('#logout_btn').click(function() {
+      document.cookie ='group_value=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      var landing_page = "http://localhost:5000/"
+      $(location).attr('href', landing_page);
 });
 
 //get graph data
@@ -112,3 +119,5 @@ async function displayData() {
         //to do, integrate data from firestore with graph
     }); 
 }
+
+//update data

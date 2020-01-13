@@ -1,0 +1,144 @@
+* {
+	font-family: 'Montserrat', sans-serif;
+}
+
+#logout_btn:hover {
+	color: #627ca6;
+	font-weight: bold;
+	background-color: transparent;
+}
+
+#select_category {
+	/*t b r l*/
+	margin: 10% 10% 0 13%;
+}
+
+#category_one, #category_two, #category_three, #category_four {
+	font-size: 55px;
+	border: 1px solid gray;
+	margin: 2.5%;
+	height: 150px;
+	width: 160px;
+	/*-webkit-text-stroke-width: .1px;
+  	-webkit-text-stroke-color: #000;*/
+  	color: #000;
+}
+
+#category_one:hover, #category_two:hover, #category_three:hover, #category_four:hover {
+	color: #fff;
+	font-size: 55px;
+	background-color: #627ca6;
+
+	-webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+
+    /*-webkit-text-stroke-width: 0;
+  	-webkit-text-stroke-color: #fff;*/
+}
+
+.active{
+	background: #627ca6;
+	font-size: 55px;
+	-webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+#submit_btn_div {
+	margin: 2% 0 0 71.8%;
+}
+
+#submit_btn {
+	border: 1px solid #627ca6;
+	padding: 7%;
+	font-weight: bold;
+}
+
+#submit_btn:hover {
+	color: #fff;
+	background-color: #627ca6;
+}
+
+#sec_div {
+	margin-top: 5%;
+}
+
+#report_desc {
+	font-size: 16px;
+}
+
+#report_sent{
+	display: none;
+	width: 17%;
+	float: right;
+}
+
+/* MOBILE */
+@media (max-width:480px)  {
+	#category_one, #category_two, #category_three, #category_four {
+		margin: 2%;
+		height: 110px;
+		width: 120px;
+	}
+
+	#submit_btn_div {
+		margin: 2% 0 0 40.5%;
+	}
+
+	#select_category {
+		/*t b r l*/
+		margin: 13% 10% 0 13%;
+	}
+
+	#category_one:hover, #category_two:hover, #category_three:hover, #category_four:hover {
+		-webkit-transform: scale(1.1);
+	    -ms-transform: scale(1.1);
+	    transform: scale(1.1);
+	}
+
+	.active{
+		-webkit-transform: scale(1.1);
+	    -ms-transform: scale(1.1);
+	    transform: scale(1.1);
+	}
+
+	#report_sent{
+		display: none;
+		float: right;
+		width: 44%;
+		margin-left: -35%;
+		margin-right: 5%;
+	}
+}
+ 
+/* TABLET */
+@media (min-width: 481px) and (max-width: 768px) { 
+    #submit_btn_div {
+		margin: 2% 0 0 39.5%;
+	}
+
+	#submit_btn {
+		border: 1px solid #627ca6;
+		padding: 4%;
+		font-weight: bold;
+	}
+
+	#category_one, #category_two, #category_three, #category_four {
+		margin: 2%;
+		height: 110px;
+		width: 120px;
+	}
+
+	#category_one:hover, #category_two:hover, #category_three:hover, #category_four:hover {
+		-webkit-transform: scale(1.1);
+	    -ms-transform: scale(1.1);
+	    transform: scale(1.1);
+	}
+
+	.active{
+		-webkit-transform: scale(1.1);
+	    -ms-transform: scale(1.1);
+	    transform: scale(1.1);
+	}
+}

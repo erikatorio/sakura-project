@@ -1,20 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="login.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,800i&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+	<title>REPORT</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="home.css">
+	<script src="jquery-3.4.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>    
+	 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+	 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
 </head>
 <body>
-<h1>testing</h1>
-
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">SAKURA</a>	
+		<div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+	  	<form class="form-inline">
+			<button id="logout_btn" class="btn btn-outline-secondary" type="button">Logout</button>
+		</form>	
+	</nav>
+	
+	<div class="container">
+		<div id="report_sent" class="row alert alert-secondary" role="alert">
+			Report has been Sent!
+		</div>
+		<!-- List of Categories -->
+		<div class="row" id="select_category">
+			<button id="category_one" value="A" type="button" class="btn categories" data-description="SEXUAL HARASSMENT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> A </strong></button>
+			<button id="category_two" value="B" type="button" class="btn categories" data-description="PHYSICAL HARASSMENT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> B </strong></button>
+			<button id="category_three" value="C" type="button" class="btn categories" data-description="DISCRIMINATORY HARASSMENT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> C </strong></button>
+			<button id="category_four" value="D" type="button" class="btn categories" data-description="BULLYING Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> D </strong></button>
+			
+		</div>
+		<div class="row" id="submit_btn_div">
+			<form class="form-inline my-2 my-lg-0">
+				<button id="submit_btn" class="btn my-2 my-sm-0" type="button" data-toggle="modal" data-target="#submit_modal" disabled> SUBMIT REPORT </button>
+			</form>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="submit_modal" tabindex="-1" role="dialog" aria-labelledby="submit_modal_title" aria-hidden="true">
+		 	<div class="modal-dialog modal-dialog-centered" role="document">
+		   		<div class="modal-content">
+		    		<div class="modal-header">
+		      		</div>
+			      	<div class="modal-body">
+			        CONFIRM SUBMISSION OF REPORT?
+			      	</div>
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        	<button id="confirm_btn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="reportSent(this)">Confirm</button>
+			      	</div>
+		    	</div>
+		  	</div>
+		</div>
+		<!-- Category Description -->
+		<div class="row" id="sec_div">
+		    <div class="col description" id="report_desc"></div>		    
+		</div>
+	</div>
 <!-- scripts -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -33,5 +86,6 @@
 
 <!-- Initialize Firebase -->
 <script src="/__/firebase/init.js"></script>
+<script src="home.js"></script>
 </body>
 </html>
