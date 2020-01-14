@@ -14,13 +14,6 @@ function selectCategory(elem) {
   	elem.classList.add('active');
 }
 
-function reportSent(x){
-	var info = document.getElementById("report_sent");
-	info.style.display = "block";
-
-	setTimeout(function(){$(info).fadeOut();}, 2000);
-}
-
  
 
 

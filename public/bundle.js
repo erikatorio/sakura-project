@@ -26913,9 +26913,9 @@ let users = [
     },
 ];
 
-for(var i = 0; i<users.length; i++) {
-    db.collection('users').doc(users[i].username).set(users[i]);
-}
+// for(var i = 0; i<users.length; i++) {
+//     db.collection('users').doc(users[i].username).set(users[i]);
+// }
 
 // login
 $(document).ready(function() {
@@ -26927,8 +26927,8 @@ $(document).ready(function() {
       var query = users.where("username", "==", username).where("password", "==", password).get()
       .then(function(querySnapshot) {
         if(!querySnapshot.empty) {
-            // var url ="http://localhost:5000/home.html"
-            // $(location).attr('href', url);
+            var url ="http://localhost:5000/home.html"
+            $(location).attr('href', url);
             querySnapshot.forEach(function(doc) {
                 document.cookie = "group_value="+encodeURIComponent(doc.data().group);
                 console.log(doc.data().group);
@@ -26937,23 +26937,31 @@ $(document).ready(function() {
             $('#invalid-credentials').append("<div class=\"alert alert-danger\" role=\"alert\">Invalid Credentials. Please Try Again. </div>");
         }
         });
-      
-    //   var query = users.get().then(function(querySnapshot) {
-    //       querySnapshot.forEach(function(doc) {
-    //           // doc.data() is never undefined for query doc snapshots
-    //           console.log(doc.id, " => ", doc.data());
-    //           console.log(username == doc.data().username && password == doc.data().password);
-    //           if(username == doc.data().username && password == doc.data().password) {
-    //               console.log("logged in");
-    //           } else {
-    //               console.log("not logged in");
-    //           }
-    //       });
-    //   })
-    //   .catch(function(error) {
-    //       console.log("Error getting documents: ", error);
-    //   });
   });
+
+    $('#confirm_btn').click(function() {
+        console.log('clicked');
+        var info = document.getElementById("report_sent");
+        info.style.display = "block";
+        setTimeout(function(){$('#report_sent').fadeOut();}, 2000);
+
+        var group;
+        var category;
+        var cookie_data = document.cookie.split(';');
+        if(cookie_data[0].includes('group_value')) {
+            var temp = cookie_data[0].split('=');
+            group = temp[1].replace('%20', ' ');
+            var temp_2 = cookie_data[1].split('=');
+            category = temp_2[1];
+            updateStats(group, category);
+        } else {
+            var temp = cookie_data[1].split('=');
+            group = temp[1].replace('%20', ' ');
+            var temp_2 = cookie_data[0].split('=');
+            category = temp_2[1];
+            updateStats(group, category);
+        }
+    });
 });
 
 $('#logout_btn').click(function() {
@@ -26961,6 +26969,14 @@ $('#logout_btn').click(function() {
       var landing_page = "http://localhost:5000/"
       $(location).attr('href', landing_page);
 });
+
+//update stat data
+function updateStats(group, category) {
+    var query = db.collection('stats').doc('stats').collection(group).doc(category);
+    query.update({
+        count: firebase.firestore.FieldValue.increment(1)
+    })
+}
 
 //get graph data
 async function getStats() {
@@ -26999,7 +27015,5 @@ async function displayData() {
         //to do, integrate data from firestore with graph
     }); 
 }
-
-//update data
 
 },{"firebase/app":8,"firebase/firestore":9}]},{},[11]);
