@@ -2,8 +2,6 @@
 	margin-top: 0.5em;
 
 }
-.col.card{
-}
 
 .col{
 	min-width: 250px;
@@ -34,6 +32,4 @@ canvas{
 	position:absolute;
 	top:2%
 }
-.btn{
-	background-color: #627ca6;
-}
+

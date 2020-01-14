@@ -1,3 +1,4 @@
+var z_values = require('./bundle.js');
 var data = null;
 var graph = null;
 
@@ -20,15 +21,15 @@ function drawVisualization() {
     var color = 0;
     var steps = 3; // number of datapoints will be steps*steps
     var axisMax = 8;
+    var z = 0;
     var axisStep = axisMax / steps;
     for (var x = 0; x <= axisMax; x += axisStep+1) {
         for (var y = 0; y <= axisMax; y += axisStep) {
-            var z = Math.random();
             if (withValue) {
                 data.push({
                   x: x,
                   y: y,
-                  z: z,
+                  z: z_values[z],
                   style: {
                     fill: colors[color],
                     stroke: colors[color+1]
@@ -38,6 +39,7 @@ function drawVisualization() {
             else {
                 data.push({ x: x, y: y, z: z });
             }
+            z+=1;
         }
         color+=1;
     }
