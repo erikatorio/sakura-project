@@ -7,19 +7,32 @@
     /* background-color: chocolate; */
 }
 
+#asset-1 {
+    height: 80px;
+    width: 80px;
+    margin-bottom: 30px !important;
+}
+
 #login-form {
     font-family: 'Montserrat', sans-serif;
 }
 
 #login-graphics {
     font-family: 'Montserrat', sans-serif;
+    padding-right: 40px;
 }
 
 #login-text {
     font-style: regular;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+#login-header {
+    margin-bottom: 20px !important;
 }
 
 .btn-primary {
-    background-color: #BDD9BF !important;
-    border-color: #BDD9BF !important;
+    background-color: #627ca6 !important;
+    border-color: #627ca6 !important;
 }

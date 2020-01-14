@@ -142,3 +142,8 @@
 	    transform: scale(1.1);
 	}
 }
+
+#asset-2 {
+	height: 30px !important;
+    width: 30px !important;
+}
