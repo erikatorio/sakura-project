@@ -82,6 +82,10 @@ $(document).ready(function() {
             updateStats(group, category);
         }
     });
+
+    $('#refresh_btn').click(function() {
+        location.reload();
+    });
 });
 
 $('#logout_btn').click(function() {
