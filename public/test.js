@@ -23,39 +23,50 @@ var db = firebase.firestore();
 //           console.log("Error getting documents: ", error);
 //       });
 
+var groups = [];
+var categories = [];
+
 async function getStats() {
-    var groups = ['Group 1', 'Group 2', 'Group 3'];
+    var group_query = await db.collection('groups').get().then(function(snapshot) {
+        snapshot.forEach(function(doc) {
+            groups.push(doc.data().name);
+        });
+    });
+    console.log(groups);
+
+    var category_query = await db.collection('categories').get().then(function(snapshot) {
+        snapshot.forEach(function(doc) {
+            categories.push(doc.data().name);
+        });
+    });
 
     var data = [];
-    var current_group_id;
     for(var i = 0; i < groups.length; i++) {
-        var current_group = await db.collection('stats').doc('stats').collection(groups[i]);
-
-        var query = await current_group.get().then(function(snapshot) {
+        for(var j = 0; j < categories.length; j++) {
+        var num_reports = await db.collection('reports').where("group", "==", groups[i]).where("category", "==", categories[j]);
+        var count;
+        var query = await num_reports.get().then(function(snapshot) {
+            count = snapshot.size;
             var current = groups[i];
-            var values = [];
-            snapshot.forEach(function(doc) {
-                //console.log(doc.id, "=>", doc.data(), "=>", doc.data().count);
-                var x = {
-                    key: doc.id,
-                    count: doc.data().count
-                }
-
-                values.push(x);
-            });
             
             data.push({
-                key: groups[i],
-                info: values
+                group: groups[i],
+                category: categories[j],
+                amount: count
             });
         });
+        }
     }
     return data;
 }
-
+var z_values=[];
 async function test() {
     var x = await getStats().then(function(y) {
-        console.log(y);
+        z_values = [];
+        for(var i = 0;i<y.length;i++){
+            z_values.push(y[i].amount);
+        }
+        console.log(z_values);
     }); 
 }
 

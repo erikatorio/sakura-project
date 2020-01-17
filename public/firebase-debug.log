@@ -1,25 +1,25 @@
-[debug] [2020-01-14T00:34:45.925Z] ----------------------------------------------------------------------
-[debug] [2020-01-14T00:34:45.929Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\erika.torio\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
-[debug] [2020-01-14T00:34:45.929Z] CLI Version:   7.11.0
-[debug] [2020-01-14T00:34:45.929Z] Platform:      win32
-[debug] [2020-01-14T00:34:45.929Z] Node Version:  v12.14.0
-[debug] [2020-01-14T00:34:45.939Z] Time:          Tue Jan 14 2020 08:34:45 GMT+0800 (GMT+08:00)
-[debug] [2020-01-14T00:34:45.939Z] ----------------------------------------------------------------------
-[debug] [2020-01-14T00:34:45.939Z] 
-[debug] [2020-01-14T00:34:45.980Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2020-01-14T00:34:45.984Z] > authorizing via signed-in user
-[debug] [2020-01-14T00:34:45.984Z] [iam] checking project sakura-test-ea29e for permissions ["firebase.projects.get"]
-[debug] [2020-01-14T00:34:45.989Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sakura-test-ea29e:testIamPermissions  
+[debug] [2020-01-17T01:45:59.787Z] ----------------------------------------------------------------------
+[debug] [2020-01-17T01:45:59.790Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\erika.torio\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-01-17T01:45:59.790Z] CLI Version:   7.11.0
+[debug] [2020-01-17T01:45:59.790Z] Platform:      win32
+[debug] [2020-01-17T01:45:59.790Z] Node Version:  v12.14.0
+[debug] [2020-01-17T01:45:59.798Z] Time:          Fri Jan 17 2020 09:45:59 GMT+0800 (GMT+08:00)
+[debug] [2020-01-17T01:45:59.798Z] ----------------------------------------------------------------------
+[debug] [2020-01-17T01:45:59.798Z] 
+[debug] [2020-01-17T01:45:59.829Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-17T01:45:59.833Z] > authorizing via signed-in user
+[debug] [2020-01-17T01:45:59.833Z] [iam] checking project sakura-test-ea29e for permissions ["firebase.projects.get"]
+[debug] [2020-01-17T01:45:59.836Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/sakura-test-ea29e:testIamPermissions  
 
-[debug] [2020-01-14T00:34:47.953Z] <<< HTTP RESPONSE 200
-[debug] [2020-01-14T00:34:47.961Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/sakura-test-ea29e  
+[debug] [2020-01-17T01:46:01.585Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-17T01:46:01.588Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/sakura-test-ea29e  
  
-[debug] [2020-01-14T00:34:48.695Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-17T01:46:02.008Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Serving from 'C:\Users\erika.torio\Documents\sakura_project'...
 [info] 
-[debug] [2020-01-14T00:34:48.700Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/sakura-test-ea29e/webApps/-/config  
+[debug] [2020-01-17T01:46:02.013Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/sakura-test-ea29e/webApps/-/config  
  
-[debug] [2020-01-14T00:34:49.786Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-17T01:46:03.359Z] <<< HTTP RESPONSE 200
 [info] i  hosting: Serving hosting files from: public
 [info] +  hosting: Local server: http://localhost:5000

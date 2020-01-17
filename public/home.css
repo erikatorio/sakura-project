@@ -60,6 +60,7 @@
 	border: 1px solid #627ca6;
 	padding: 7%;
 	font-weight: bold;
+	width: 120%;
 }
 
 #submit_btn:hover {

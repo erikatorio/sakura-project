@@ -26927,11 +26927,16 @@ $(document).ready(function() {
       var query = users.where("username", "==", username).where("password", "==", password).get()
       .then(function(querySnapshot) {
         if(!querySnapshot.empty) {
-            var url ="http://localhost:5000/home.html"
-            $(location).attr('href', url);
+            var home_url ="http://localhost:5000/home.html"
+            var admin_url ="http://localhost:5000/statistics.html"
             querySnapshot.forEach(function(doc) {
-                document.cookie = "group_value="+encodeURIComponent(doc.data().group);
-                console.log(doc.data().group);
+                console.log(doc.data().type);
+                if(doc.data().type == "user") {
+                    $(location).attr('href', home_url);
+                    document.cookie = "group_value="+encodeURIComponent(doc.data().group);
+                } else {
+                    $(location).attr('href', admin_url);
+                }
             });
         } else {
             $('#invalid-credentials').append("<div class=\"alert alert-danger\" role=\"alert\">Invalid Credentials. Please Try Again. </div>");
@@ -26953,20 +26958,29 @@ $(document).ready(function() {
             group = temp[1].replace('%20', ' ');
             var temp_2 = cookie_data[1].split('=');
             category = temp_2[1];
-            updateStats(group, category);
+            addReport(group, category);
         } else {
             var temp = cookie_data[1].split('=');
             group = temp[1].replace('%20', ' ');
             var temp_2 = cookie_data[0].split('=');
             category = temp_2[1];
-            updateStats(group, category);
+            addReport(group, category);
         }
     });
 
     $('#refresh_btn').click(function() {
-        location.reload();
+        console.log('reload');
     });
 });
+
+function deselectBtn(e){
+    var button = document.getElementsByClassName('categories');
+    
+    for (var i = 0; i < button.length; i++) {
+        button[i].classList.remove('active');
+    }
+    document.getElementById("submit_btn").disabled = true;
+}
 
 $('#logout_btn').click(function() {
       document.cookie ='group_value=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -26974,41 +26988,46 @@ $('#logout_btn').click(function() {
       $(location).attr('href', landing_page);
 });
 
-//update stat data
-function updateStats(group, category) {
-    var query = db.collection('stats').doc('stats').collection(group).doc(category);
-    query.update({
-        count: firebase.firestore.FieldValue.increment(1)
+//add new report
+function addReport(grp, cat) {
+    var query = db.collection('reports').add({
+        category: cat,
+        group: grp
     })
 }
+var groups = [];
+var categories = [];
 
 //get graph data
 async function getStats() {
-    var groups = ['Group 1', 'Group 2', 'Group 3'];
+    var group_query = await db.collection('groups').get().then(function(snapshot) {
+        snapshot.forEach(function(doc) {
+            groups.push(doc.data().name);
+        });
+    });
+
+    var category_query = await db.collection('categories').get().then(function(snapshot) {
+        snapshot.forEach(function(doc) {
+            categories.push(doc.data().name);
+        });
+    });
 
     var data = [];
-    var current_group_id;
     for(var i = 0; i < groups.length; i++) {
-        var current_group = await db.collection('stats').doc('stats').collection(groups[i]);
-
-        var query = await current_group.get().then(function(snapshot) {
+        for(var j = 0; j < categories.length; j++) {
+        var num_reports = await db.collection('reports').where("group", "==", groups[i]).where("category", "==", categories[j]);
+        var count;
+        var query = await num_reports.get().then(function(snapshot) {
+            count = snapshot.size;
             var current = groups[i];
-            var values = [];
-            snapshot.forEach(function(doc) {
-                //console.log(doc.id, "=>", doc.data(), "=>", doc.data().count);
-                var x = {
-                    key: doc.id,
-                    count: doc.data().count
-                }
-
-                values.push(x);
-            });
             
             data.push({
-                key: groups[i],
-                info: values
+                group: groups[i],
+                category: categories[j],
+                amount: count
             });
         });
+        }
     }
     return data;
 }
@@ -27021,12 +27040,10 @@ async function displayData() {
         // console.log(y[0].info[0].count);
 
         z_values = [];
-        for(var i = 0;i<3;i++){
-            for(var j = 0;j<4;j++){
-                z_values.push(y[i].info[j].count);
-            }
+        for(var i = 0;i<y.length;i++){
+            z_values.push(y[i].amount);
         }
-        //console.log(z_values);
+        console.log(z_values);
     }); 
 }
 
@@ -27101,9 +27118,9 @@ var cat_count = 0;
     zLabel: "Reports",
     yValueLabel: function (y) {
         if(y == 0){
-            return "Category " + category[y];
+            return "Category " + categories[y];
         }else{
-            return "Category " +category[Math.ceil(y/3)];
+            return "Category " +categories[Math.ceil(y/3)];
         }
     },
     
@@ -27111,7 +27128,7 @@ var cat_count = 0;
         if(x == 0){
             return "Group 1";
         }else{
-            return "Group " + (Math.ceil(x/3));
+            return "Group " + groups[Math.ceil(x/3)];
         }
     },
     tooltip: function(data){
