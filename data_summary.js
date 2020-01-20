@@ -31,14 +31,17 @@ google.charts.load("current", {packages:["corechart"]});
   //hides print button when clicked
   function printSummary(){
     $("#print-btn").css("display", 'none');
+    $("#shape").css("display", 'inline');
     setTimeout(function(){
+      $("#shape").css("display", 'none');
       window.print()
-    },3000) ;
+    },1000) ;
   }
 
   //displays print button after printing/closing
   function afterPrint(){
     setTimeout(function(){
       $("#print-btn").css("display", 'inline');
+      $("#shape").css("display", 'none');
     },2000) ;
   }
