@@ -104,10 +104,29 @@ $('#logout_link').click(function() {
 
 //add new report
 function addReport(grp, cat) {
-    var query = db.collection('reports').add({
-        category: cat,
-        group: grp
-    });
+    switch(grp) {
+        case 'Group 1':
+            db.collection('reports').add({
+                category: cat,
+                group: grp,
+                color: colors[0]
+            });
+            break;
+        case 'Group 2':
+            db.collection('reports').add({
+                category: cat,
+                group: grp,
+                color: colors[1]
+            });
+            break;
+        case 'Group 3':
+            db.collection('reports').add({
+                category: cat,
+                group: grp,
+                color: colors[2]
+            });
+            break;
+    }
 }
 
 //use listen on firestore
@@ -189,7 +208,7 @@ async function displayData() {
         for(var i = 0;i<y.length;i++){
             z_values.push(y[i].amount);
         }
-    }); 
+    });
 }
 
 var z_data = null;
@@ -302,33 +321,44 @@ var cat_count = 0;
   if (camera) graph.setCameraPosition(camera); // restore camera position
 }
 
-//adds reports to the report-container
-function xReport(){
-    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac nisi eu elit rhoncus mattis dignissim vel sem. Donec bibendum augue velit, nec gravida turpis ornare eget. Mauris eu sapien bibendum, blandit risus at, pretium tellus. Donec volutpat non sem a efficitur. Curabitur turpis magna, elementum ac felis nec, congue finibus massa. Quisque laoreet tincidunt quam, sed mollis augue varius egestas. Curabitur quis sollicitudin diam, non tempus tortor. Nam condimentum arcu sed lacus rhoncus, id tincidunt lectus vehicula.";
-    var group = 1; //changeable
-    
-    //sample populator for report
-    var ctr = 1;
-    for(var i = 1; i < 10; i++,ctr++){
-        if(ctr > 3){
-            ctr = 1;
-        }
-        group = ctr;
-        document.getElementById("report-container").innerHTML +='<div data-toggle="modal" data-target="#report-full" class="card report-card mb-3 " style="min-width:100%"><div class="row no-gutters"><div class="col"><div class="card-body text-wrap"><span class="badge badge-pill" style="background-color:'+colors[group-1]+'">Group '+ group+'</span><p class="text-truncate">'+text+'</p></div></div></div></div>';
-    }
+function reportTemplate(reportList) {
+    return '<div data-toggle="modal" data-target="#report-'+reportList.id+'" class="card report-card mb-3 " style="min-width:100%"><div class="row no-gutters"><div class="col"><div class="card-body text-wrap"><span class="badge badge-pill" style="background-color:'+reportList.color+'">'+reportList.group+'</span><p class="text-truncate">'+reportList.details+'</p></div></div></div></div><div class="modal fade" id="report-'+reportList.id+'" tabindex="-1" role="dialog"><div class="modal-dialog modal-dialog-centered" role="document"><div class="modal-content"><div class="modal-header" style="background-color:'+reportList.color+'"><h5 class="modal-title" id="report-full-title">Category '+reportList.category+'</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body scrollbar scrollbar-rare-wind">'+reportList.details+'</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>'
 }
 
-//notification
+async function getReports() {
+    var r = [];
+    var category_query = await db.collection('reports').where('details','>','').get()
+    .then(function(snapshot) {
+        snapshot.forEach(function(doc) {
+            r.push({
+                id: doc.id,
+                group: doc.data().group,
+                category: doc.data().category,
+                details: doc.data().details,
+                color: doc.data().color
+            });
+        });
+    });
+    return r;
+}
+
+//adds reports to the report-container
+async function displayReportList(){
+    await getReports().then(function(b) {
+        $('#report-container').append($.parseHTML(b.map(reportTemplate).join('')));
+    });
+}
 
 window.addEventListener("load", () => {
     displayCategories();
     newReportNotif();
     $('.toast').toast('show');
     $('#refresh_btn').click(function() {
-        drawVisualization();
+        //drawVisualization();
+        location.reload(true);
         console.log('refresh');
     });
-    xReport();
+    displayReportList();
     drawVisualization();
     document.getElementById("mygraph").childNodes[0].childNodes[1].style.width = '630px';
     drawVisualization();
