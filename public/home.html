@@ -7,6 +7,8 @@
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	
+	<link rel="icon" type="image/png" href="favicon.png">
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script src="https://kit.fontawesome.com/ee2911312d.js" crossorigin="anonymous"></script>
@@ -41,7 +43,7 @@
 		        	<a style="cursor: pointer;" class="nav-link" href="#"><i class="fas fa-comments fa-lg"></i> Chat</a>
 		      	</li>
 		    	<li class="nav-item">
-		        	<a style="cursor: pointer;" class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+		        	<a style="cursor: pointer;" class="nav-link" id="logout_link"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
 		      	</li>
 	    	</ul>
 		</div>
@@ -53,10 +55,7 @@
 		</div>
 		<!-- List of Categories -->
 		<div class="row" id="select_category">
-			<button selected id="category_one" value="A" type="button" class="btn categories" data-description="SEXUAL HARASSMENT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> A </strong></button>
-			<button id="category_two" value="B" type="button" class="btn categories" data-description="PHYSICAL HARASSMENT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> B </strong></button>
-			<button id="category_three" value="C" type="button" class="btn categories" data-description="DISCRIMINATORY HARASSMENT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> C </strong></button>
-			<button id="category_four" value="D" type="button" class="btn categories" data-description="BULLYING Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. " onclick="selectCategory(this)"><strong> D </strong></button>
+			
 		</div>
 		<div class="row" id="submit_btn_div">
 			<form class="form-inline my-2 my-lg-0">
@@ -74,7 +73,7 @@
 			      	</div>
 			      	<div class="modal-footer">
 			        	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        	<button id="confirm_btn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="confirmBtn(this)">Confirm</button>
+			        	<button id="confirm_btn" type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
 			      	</div>
 		    	</div>
 		  	</div>
@@ -107,6 +106,5 @@
 <!-- Initialize Firebase -->
 <script src="/__/firebase/init.js"></script>
 <script src="home.js"></script>
-<script src="app.js"></script>
 </body>
 </html>

@@ -1,38 +1,50 @@
 <html>
 <head>
-  <title>Statistics</title>
+  <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
    <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="home.css">
+   
    <link rel="icon" type="image/png" href="favicon.png">
+   <script src="https://kit.fontawesome.com/ee2911312d.js" crossorigin="anonymous"></script>
+   <link rel="stylesheet" href="home.css">
    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
    <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+   
    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+  <!-- <script type="text/javascript" src="dashboard.js"></script> -->
   <meta name="viewport" content="width=device-width, user-scalable=no" />
 </head>
-<body>
+<body class="scrollbar scrollbar-rare-wind">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <img src="help.png" alt="" id="image">
-      <a class="navbar-brand" href="#">TEST</a> 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-      <form class="form-inline">
-        <button id="logout_btn" class="btn btn-outline-secondary" type="button">Logout</button>
-      </form> 
-    </nav>
+    <a class="navbar-brand" href="#">
+        <img src="sakura2.png" style="position: fixed; top: 0; left: 1;" width="60" height="50" class="d-inline-block align-top" alt="image">
+        <span id="sakura_title" style="margin-left: 90%;">Sakura</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="#"><i class="fas fa-comments fa-lg"></i> Chat</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" id="logout_link"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+            </li>
+        </ul>
+    </div>
+  </nav>
     <div class="container">
     <div class="row">
         <div class="col">
           <div class="card" >
             <div class="card-body">
               <h5 class="card-title">Report Count Today</h5>
-              <p class="card-text">NumBER</p>
+              <p class="card-text" id="report_count">NumBER</p>
             </div>
             <div class="card-footer d-flex flex-row-reverse">
                 <small>
@@ -53,7 +65,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Reports</h5>
-              <p class="card-text">NumBER</p>
+              <p class="card-text" id="report_num">NumBER</p>
             </div>
             <div class="card-footer d-flex flex-row-reverse" >
                 <small>
@@ -74,7 +86,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Respondents</h5>
-              <p class="card-text">NumBER</p>
+              <p class="card-text" id="respondents">NumBER</p>
             </div>
             <div class="card-footer d-flex flex-row-reverse">
                 <small>
@@ -131,45 +143,10 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body" >
-              <h5 class="card-title">Card title</h5><div id="uv-div" ><p>
-  <label for="style">
-    Style:
-    <select id="style">
-      <option value="bar">bar</option>
-      <option value="bar-color" selected>bar-color</option>
-      <option value="bar-size">bar-size</option>
-
-      <option value="dot">dot</option>
-      <option value="dot-line">dot-line</option>
-      <option value="dot-color">dot-color</option>
-      <option value="dot-size">dot-size</option>
-
-      <option value="grid">grid</option>
-      <option value="line">line</option>
-      <option value="surface">surface</option>
-    </select>
-  </label>
-</p><p>
-  <label for="perspective">
-    <input type="checkbox" id="perspective" checked /> Show perspective
-  </label>
-</p>
-
-<p>
-  <label for="xBarWidth">
-    Bar width X:
-    <input type="text" id="xBarWidth" value style="width:50px;" /> (only
-    applicable for styles &quot;bar&quot; and &quot;bar-color&quot;)
-  </label>
-</p>
-<p>
-  <label for="yBarWidth">
-    Bar width Y:
-    <input type="text" id="yBarWidth" value style="width:50px;" /> (only
-    applicable for styles &quot;bar&quot; and &quot;bar-color&quot;)
-  </label>
-</p>
-</div>
+              <h5 class="card-title">Report</h5>
+              <div id="report-container" class="scrollbar scrollbar-rare-wind container">
+                
+              </div>
             </div>
             <div class="card-footer">
               <small class="text-muted">Last updated 3 mins ago</small>
@@ -177,24 +154,46 @@
           </div>
         </div>
     </div>
+  <!-- Notifications Container-->
+  <div id="notification-container" >
+    
+  </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- Modal -->
+<div class="modal fade" id="report-full" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="report-full-title">PILL COLOUR</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body scrollbar scrollbar-rare-wind">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac nisi eu elit rhoncus mattis dignissim vel sem. Donec bibendum augue velit, nec gravida turpis ornare eget. Mauris eu sapien bibendum, blandit risus at, pretium tellus. Donec volutpat non sem a efficitur. Curabitur turpis magna, elementum ac felis nec, congue finibus massa. Quisque laoreet tincidunt quam, sed mollis augue varius egestas. Curabitur quis sollicitudin diam, non tempus tortor. Nam condimentum arcu sed lacus rhoncus, id tincidunt lectus vehicula.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
 <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 <script type="text/javascript" src="bundle.js"></script>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="/__/firebase/7.6.1/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="/__/firebase/7.6.1/firebase-analytics.js"></script>
 <script src="/__/firebase/7.6.1/firebase-firestore.js"></script>
-
-<!-- Initialize Firebase -->
+ 
 <script src="/__/firebase/init.js"></script>
 </body>
 </html>

@@ -50,7 +50,6 @@ $(document).ready(function() {
             var home_url ="http://localhost:5000/home.html"
             var admin_url ="http://localhost:5000/statistics.html"
             querySnapshot.forEach(function(doc) {
-                console.log(doc.data().type);
                 if(doc.data().type == "user") {
                     $(location).attr('href', home_url);
                     document.cookie = "group_value="+encodeURIComponent(doc.data().group);
@@ -65,7 +64,6 @@ $(document).ready(function() {
   });
 
     $('#confirm_btn').click(function() {
-        console.log('clicked');
         var info = document.getElementById("report_sent");
         info.style.display = "block";
         setTimeout(function(){$('#report_sent').fadeOut();}, 2000);
@@ -87,10 +85,6 @@ $(document).ready(function() {
             addReport(group, category);
         }
     });
-
-    $('#refresh_btn').click(function() {
-        console.log('reload');
-    });
 });
 
 function deselectBtn(e){
@@ -102,7 +96,7 @@ function deselectBtn(e){
     document.getElementById("submit_btn").disabled = true;
 }
 
-$('#logout_btn').click(function() {
+$('#logout_link').click(function() {
       document.cookie ='group_value=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
       var landing_page = "http://localhost:5000/"
       $(location).attr('href', landing_page);
@@ -113,7 +107,19 @@ function addReport(grp, cat) {
     var query = db.collection('reports').add({
         category: cat,
         group: grp
-    })
+    });
+}
+
+//use listen on firestore
+function newReportNotif() {
+    db.collection("reports").onSnapshot(function(querySnapshot) {
+       var notif_container = document.getElementById("notification-container");
+        var time = new Date();
+        var notif_type = "Chat/Report";
+        var notif_message = "A new report has been submitted."; //"Message for the notif here";
+        notif_container.innerHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000"><div class="toast-header"><svg class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#007aff" width="100%" height="100%" /></svg><strong class="mr-auto">'+notif_type+'!</strong><small class="text-muted">'+time+'</small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div><div class="toast-body">'+notif_message+'</div></div>'
+        $('.toast').toast('show');
+    });
 }
 var groups = [];
 var categories = [];
@@ -152,23 +158,43 @@ async function getStats() {
     return data;
 }
 
+function categoryTemplate(categoriesList) {
+    return '<button id="category_'+categoriesList.name+'" value="'+categoriesList.name+'" type="button" class="btn categories" data-description="'+categoriesList.description+'" onclick="selectCategory(this)"><strong>'+categoriesList.name+ '</strong></button>'
+}
+
+async function getCategories() {
+    var c = [];
+    var category_query = await db.collection('categories').get().then(function(snapshot) {
+        snapshot.forEach(function(doc) {
+            c.push({
+                name: doc.data().name,
+                description: doc.data().description
+            });
+        });
+    });
+    return c;
+}
+
+async function displayCategories() {
+    await getCategories().then(function(a) {
+        $('#select_category').append($.parseHTML(a.map(categoryTemplate).join('')));
+    });
+}
+
 var z_values;
 //display data
 async function displayData() {
     var x = await getStats().then(function(y) {
-        // console.log(y);
-        // console.log(y[0].info[0].count);
-
         z_values = [];
         for(var i = 0;i<y.length;i++){
             z_values.push(y[i].amount);
         }
-        console.log(z_values);
     }); 
 }
 
 var z_data = null;
 var graph = null;
+var colors = ["#EBD2B4", "#F4989C", "#DAC4F7", "#ACECF7"];
 
 function custom(x, y) {
   return -Math.sin(x / Math.PI) * Math.cos(y / Math.PI) * 10 + 10;
@@ -176,15 +202,11 @@ function custom(x, y) {
 
 // Called when the Visualization API is loaded.
 async function drawVisualization() {
-    var style = document.getElementById("style").value;
-    var showPerspective = document.getElementById("perspective").checked;
-    var xBarWidth = parseFloat(document.getElementById("xBarWidth").value) || undefined;
-    var yBarWidth = parseFloat(document.getElementById("yBarWidth").value) || undefined;
-    var withValue = ["bar-color", "bar-size", "dot-size", "dot-color"].indexOf(style) != -1;
+    var style = "bar-color";//document.getElementById("style").value;
+    var showPerspective = true;
 
     // Create and populate a data table.
     z_data = [];
-    colors = ["#EBD2B4", "#F4989C", "#DAC4F7", "#ACECF7"];
     await displayData();
 
     var color = 0;
@@ -195,7 +217,7 @@ async function drawVisualization() {
     for (var x = 0; x <= axisMax; x += axisStep+1) {
         for (var y = 0; y <= axisMax; y += axisStep) {
             
-            if (withValue) {
+            if (true) {
                 z_data.push({
                   x: x,
                   y: y,
@@ -278,29 +300,48 @@ var cat_count = 0;
   graph = new vis.Graph3d(container, z_data, options);
 
   if (camera) graph.setCameraPosition(camera); // restore camera position
+}
 
-  document.getElementById("style").onchange = drawVisualization;
-  document.getElementById("perspective").onchange = drawVisualization;
-  document.getElementById("xBarWidth").onchange = drawVisualization;
-  document.getElementById("yBarWidth").onchange = drawVisualization;
+//adds reports to the report-container
+function xReport(){
+    var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac nisi eu elit rhoncus mattis dignissim vel sem. Donec bibendum augue velit, nec gravida turpis ornare eget. Mauris eu sapien bibendum, blandit risus at, pretium tellus. Donec volutpat non sem a efficitur. Curabitur turpis magna, elementum ac felis nec, congue finibus massa. Quisque laoreet tincidunt quam, sed mollis augue varius egestas. Curabitur quis sollicitudin diam, non tempus tortor. Nam condimentum arcu sed lacus rhoncus, id tincidunt lectus vehicula.";
+    var group = 1; //changeable
+    
+    //sample populator for report
+    var ctr = 1;
+    for(var i = 1; i < 10; i++,ctr++){
+        if(ctr > 3){
+            ctr = 1;
+        }
+        group = ctr;
+        document.getElementById("report-container").innerHTML +='<div data-toggle="modal" data-target="#report-full" class="card report-card mb-3 " style="min-width:100%"><div class="row no-gutters"><div class="col"><div class="card-body text-wrap"><span class="badge badge-pill" style="background-color:'+colors[group-1]+'">Group '+ group+'</span><p class="text-truncate">'+text+'</p></div></div></div></div>';
+    }
+}
 
-  document.getElementById("mygraph").childNodes[0].childNodes[1].style.width = '630px';
+//notification
+
+window.addEventListener("load", () => {
+    displayCategories();
+    newReportNotif();
+    $('.toast').toast('show');
+    $('#refresh_btn').click(function() {
+        drawVisualization();
+        console.log('refresh');
+    });
+    xReport();
+    drawVisualization();
+    document.getElementById("mygraph").childNodes[0].childNodes[1].style.width = '630px';
+    drawVisualization();
     graph.setCameraPosition({horizontal: 1.4, vertical: 0, distance: 1.6})
 
     //legend
     for(var i = 0; i<3;i++){
       document.getElementById("legend").innerHTML +='<span class="badge badge-pill" style="background-color:'+colors[i]+'">Group '+(i+1)+'</span>';
     }
-}
-
-window.addEventListener("load", () => {
-    drawVisualization();
-    
-
 });
+
 window.addEventListener("resize", function(){
     graph.animationStart();
     //document.getElementById("mygraph").style.left = 0;
     graph.redraw();
-    console.log("resize")
 });
