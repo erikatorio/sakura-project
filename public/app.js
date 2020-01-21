@@ -61,9 +61,6 @@ $(document).ready(function() {
 
     $('#confirm_btn').click(function() {
         console.log('clicked');
-        var info = document.getElementById("report_sent");
-        info.style.display = "block";
-        setTimeout(function(){$('#report_sent').fadeOut();}, 2000);
 
         var group;
         var category;
@@ -87,6 +84,19 @@ $(document).ready(function() {
         location.reload();
     });
 });
+
+function confirmBtn(t){ 
+    $("#submit_modal1 .close").click().fadeOut();
+    var button = document.getElementsByClassName('categories');
+    
+    for (var i = 0; i < button.length; i++) {
+        button[i].classList.remove('active');
+    }
+    document.getElementById("submit_btn").disabled = true;
+
+    var x = document.getElementById("report_desc");
+    x.style.display = 'none';
+}
 
 $('#logout_btn').click(function() {
       document.cookie ='group_value=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
