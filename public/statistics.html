@@ -1,27 +1,33 @@
 <html>
 <head>
   <title>Admin Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-   <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/ee2911312d.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script src="jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
    
-   <link rel="icon" type="image/png" href="favicon.png">
-   <script src="https://kit.fontawesome.com/ee2911312d.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="home.css">
-   <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-   <script type="text/javascript" src="https://unpkg.com/vis-graph3d@latest/dist/vis-graph3d.min.js"></script>
    
-   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
   <!-- <script type="text/javascript" src="dashboard.js"></script> -->
-  <meta name="viewport" content="width=device-width, user-scalable=no" />
 </head>
-<body class="scrollbar scrollbar-rare-wind">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body class="scrollbar scrollbar-rare-wind">    
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-        <img src="sakura2.png" style="position: fixed; top: 0; left: 1;" width="60" height="50" class="d-inline-block align-top" alt="image">
-        <span id="sakura_title" style="margin-left: 90%;">Sakura</span>
+        <img src="sakura2.png" width="60" height="50" class="d-inline-block" alt="image">
+        <span id="sakura_title">Sakura</span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,15 +36,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-              <a class="nav-link" href="#"><i class="fas fa-comments fa-lg"></i> Chat</a>
+              <a style="cursor: pointer;" title="Chat" class="nav-link" href="#"><i class="fas fa-comments fa-lg"></i> Chat</a>
             </li>
           <li class="nav-item">
-              <a class="nav-link" id="logout_link"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
+              <a style="cursor: pointer;" title="Logout" class="nav-link" href="#"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
             </li>
         </ul>
     </div>
   </nav>
-    <div class="container">
+  <div class="container">
     <div class="row">
         <div class="col">
           <div class="card" >
@@ -155,25 +161,23 @@
         </div>
     </div>
   <!-- Notifications Container-->
-  <div id="notification-container" >
+    <div id="notification-container">
     
+    </div>
   </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> -->
 
 
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
-<script type="text/javascript" src="bundle.js"></script>
-<script src="/__/firebase/7.6.1/firebase-app.js"></script>
-
-<script src="/__/firebase/7.6.1/firebase-analytics.js"></script>
-<script src="/__/firebase/7.6.1/firebase-firestore.js"></script>
- 
-<script src="/__/firebase/init.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+  <script type="text/javascript" src="bundle.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-app.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-analytics.js"></script>
+  <script src="/__/firebase/7.6.1/firebase-firestore.js"></script>   
+  <script src="/__/firebase/init.js"></script>
 </body>
 </html>
