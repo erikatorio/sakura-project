@@ -1,6 +1,8 @@
 #shape 
-{	display:none;
-    position: fixed;
+{	display: inline-block;
+    position: absolute;
+    margin-top: 183px;
+    margin-left: 260px;
     left:50%;
     top:50%;
     transform: translate(-50%,-50%);
