@@ -160,18 +160,18 @@ async function getStats() {
     var data = [];
     for(var i = 0; i < groups.length; i++) {
         for(var j = 0; j < categories.length; j++) {
-        var num_reports = await db.collection('reports').where("group", "==", groups[i]).where("category", "==", categories[j]);
-        var count;
-        var query = await num_reports.get().then(function(snapshot) {
-            count = snapshot.size;
-            var current = groups[i];
-            
-            data.push({
-                group: groups[i],
-                category: categories[j],
-                amount: count
+            var num_reports = await db.collection('reports').where("group", "==", groups[i]).where("category", "==", categories[j]);
+            var count;
+            var query = await num_reports.get().then(function(snapshot) {
+                count = snapshot.size;
+                var current = groups[i];
+                
+                data.push({
+                    group: groups[i],
+                    category: categories[j],
+                    amount: count
+                });
             });
-        });
         }
     }
     return data;

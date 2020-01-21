@@ -20,19 +20,3 @@ function selectCategory(elem) {
     elem.classList.add('active');
   }
 }
-
-document.querySelector("#confirm_btn2").addEventListener("click", function() {
-  swal({
-    text: "Report has been sent!",
-    type: 'success',
-    position: "top right",
-    backdrop: "transparent",
-    background: "#efffed",
-    allowOutsideClick: false,
-    allowEscapeKey: false,
-    allowEnterKey: false,
-    showConfirmButton: false,
-    showCancelButton: false,
-    timer: 2000
-  });
-});
