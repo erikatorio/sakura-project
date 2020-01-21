@@ -1,4 +1,4 @@
-.card{
+.card-dash{
 	margin-top: 0.5em;
 }
 
@@ -31,7 +31,7 @@
 	border: 1px solid black;
 }
 
-.col{
+.col-dash{
 	min-width: 250px;
 	width: 310px;
 	max-height: 200px;
@@ -53,10 +53,16 @@
 	height: 500px;
 	min-height: 350px;
 }
+
+#mygraph{
+	width:100%;
+	position:absolute;
+	left:0;
+}
 canvas{
 	min-height: 450px;
 	max-height:450px;
-	min-width:448px !important;
+	min-width:328px !important;
 	max-width: 650px;
 	padding:5%;
 	margin-top:0;
@@ -69,7 +75,10 @@ canvas{
 	right: 15;
 }
 
+/*table*/
 
+
+/*scrollbar*/
 .scrollbar-rare-wind::-webkit-scrollbar-track {
 -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 background-color: #F5F5F5;
