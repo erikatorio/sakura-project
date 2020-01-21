@@ -20,3 +20,32 @@ function selectCategory(elem) {
     elem.classList.add('active');
   }
 }
+
+document.querySelector("#confirm_btn2").addEventListener("click", function() {
+  swal({
+    text: "Report has been sent!",
+    type: 'success',
+    position: "top right",
+    backdrop: "transparent",
+    background: "#efffed",
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    allowEnterKey: false,
+    showConfirmButton: false,
+    showCancelButton: false,
+    timer: 2000
+  });
+  setTimeout(function(){$('#submit_modal1').css("filter", "blur(0)");}, 500);
+});
+
+$("#confirm_btn1").click(function(){
+  $("#submit_modal1").css("filter", "blur(2px)");  
+});
+
+$("#cancel_btn").click(function(){
+  $("#submit_modal1").css("filter", "blur(0)");  
+});
+
+function showChat(){
+  $('.toast').toast('show');
+}

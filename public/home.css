@@ -2,11 +2,7 @@
 	font-family: 'Montserrat', sans-serif;
 }
 
-/*.navbar{
- margin: 5%;
-}*/
-
-button[id^='category_'] {
+#category_one, #category_two, #category_three, #category_four {
 	font-size: 55px;
 	border: 1px solid gray;
 	margin: 2.5%;
@@ -25,7 +21,7 @@ button[id^='category_'] {
 	margin: -7% 0 0 68.5%;
 }
 
-button[id^='category_']:hover {
+#category_one:hover, #category_two:hover, #category_three:hover, #category_four:hover {
 	color: #fff;
 	font-size: 55px;
 	background-color: #627ca6;
@@ -71,6 +67,19 @@ button[id^='category_']:hover {
 	margin-top: -6%;
 }
 
+.modalll2 { 
+	 backdrop-filter: blur(5px);
+}
+
+form{
+	padding: 5px;
+}
+
+
+#confirm_btn1, #confirm_btn2{
+	background-color: #627ca6;
+}
+
 /* MOBILE */
 @media (max-width:480px)  {
 	#image{
@@ -87,17 +96,17 @@ button[id^='category_']:hover {
 		width: 61%;
 	}
 
-	button[id^='category_'] {
+	#category_one, #category_two, #category_three, #category_four {
 		margin: 2%;
 		height: 80px;
 		width: 90px;
 	}
 
-	button[id^='category_'] {
+	#category_one, #category_two, #category_three, #category_four {
 		font-size: 40px;
 	}
 
-	button[id^='category_']:hover {
+	#category_one:hover, #category_two:hover, #category_three:hover, #category_four:hover {
 		font-size: 40px;
 		-webkit-transform: scale(1.1);
 	    -ms-transform: scale(1.1);
@@ -124,7 +133,6 @@ button[id^='category_']:hover {
 		display: none;
 		float: right;
 		width: 50%;
-		/*margin-left: -35%;*/
 		margin-right: 5%;
 		margin-top: 5%;
 	}
@@ -155,13 +163,13 @@ button[id^='category_']:hover {
 		width: 85%;
 	}
 
-	button[id^='category_']{
+	#category_one, #category_two, #category_three, #category_four {
 		margin: 2%;
 		height: 110px;
 		width: 120px;
 	}
 
-	button[id^='category_']:hover {
+	#category_one:hover, #category_two:hover, #category_three:hover, #category_four:hover {
 		-webkit-transform: scale(1.1);
 	    -ms-transform: scale(1.1);
 	    transform: scale(1.1);
@@ -177,7 +185,6 @@ button[id^='category_']:hover {
 		display: none;
 		float: right;
 		width: 50%;
-		/*margin-left: -35%;*/
 		margin-right: 5%;
 		margin-top: -15%;
 	}
