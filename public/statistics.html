@@ -166,15 +166,38 @@
     
   </div>
 </div>
-<div onclick="viewMessage()" class="col-message chat-preview">
+<!-- Chat Container-->
+        <div id="chat-container" >
+          <div class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <button type="button" id="back-btn" onclick="back()" class="btn btn-info"></button>
+              <svg style="display:none" id="user-chat" class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <rect fill="#007aff" width="100%" height="100%" />
+              </svg>
+              <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div style="display:none" id="admin-search">
+              <div class="input-group mb-3 row no-gutters">
+                <input type="text" id="searcharea-message" class="form-control" placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button type="button" id="search-btn" class="btn btn-info"></button>
+                </div>
+              </div>
+              <div id="user-list" class="toast-body row no-gutters d-flex justify-content-center scrollbar scrollbar-rare-wind">
+                <!--sample of usercard of user_1-->
+                <div onclick="viewMessage()" class="col-message chat-preview">
                   <div class="row no-gutters">
-                    <div class="col-auto pad-5 d-flex align-items-center justify-content-center">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
                       <center><img src="user.png"></center>
                     </div>
-                    <div class="col-8 pad-10">
+                    <div class="col">
                       <br>
                       <div class="w-100"></div>
-                      <div class="d-flex justify-content-between" >
+                      <div class="d-flex justify-content-between">
                         <strong><span style="font-size:medium;">User_0001</span></strong>
                       </div>
                       <div class="w-100"></div>
@@ -198,21 +221,21 @@
                 </div>
                 <div onclick="viewMessage()" class="col-message chat-preview">
                   <div class="row no-gutters">
-                    <div class="col-auto pad-5 d-flex align-items-center justify-content-center">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
                       <center><img src="user.png"></center>
                     </div>
-                    <div class="col-8 pad-10">
+                    <div class="col">
                       <br>
                       <div class="w-100"></div>
-                      <div class="d-flex justify-content-between" >
-                        <strong><span style="font-size:medium;">User_0001</span></strong>
+                      <div class="d-flex justify-content-between">
+                        <strong><span style="font-size:medium;">User_0002</span></strong>
                       </div>
                       <div class="w-100"></div>
                         <small class="text-muted">Message preview...</small>
                       <div class="w-100"></div>
                       
                     </div>
-                    <div class="col-auto" >
+                    <div class="col-auto">
                       <br>
                       <div class="w-100"></div>
                       <div class="d-flex justify-content-end">
@@ -220,7 +243,8 @@
                       </div>
                       <div class="w-100"></div>
                       <br>
-                      <div class="d-flex justify-content-center">
+                      <div class="w-100"></div>
+                      <div class="d-flex justify-content-center align-items-center">
                         <span class="badge badge-pill badge-info">1</span>  
                       </div>
                     </div>
@@ -228,21 +252,21 @@
                 </div>
                 <div onclick="viewMessage()" class="col-message chat-preview">
                   <div class="row no-gutters">
-                    <div class="col-auto pad-5 d-flex align-items-center justify-content-center">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
                       <center><img src="user.png"></center>
                     </div>
-                    <div class="col-8 pad-10">
+                    <div class="col">
                       <br>
                       <div class="w-100"></div>
-                      <div class="d-flex justify-content-between" >
-                        <strong><span style="font-size:medium;">User_0001</span></strong>
+                      <div class="d-flex justify-content-between">
+                        <strong><span style="font-size:medium;">User_0003</span></strong>
                       </div>
                       <div class="w-100"></div>
                         <small class="text-muted">Message preview...</small>
                       <div class="w-100"></div>
                       
                     </div>
-                    <div class="col-auto" >
+                    <div class="col-auto">
                       <br>
                       <div class="w-100"></div>
                       <div class="d-flex justify-content-end">
@@ -250,7 +274,8 @@
                       </div>
                       <div class="w-100"></div>
                       <br>
-                      <div class="d-flex justify-content-center">
+                      <div class="w-100"></div>
+                      <div class="d-flex justify-content-center align-items-center">
                         <span class="badge badge-pill badge-info">1</span>  
                       </div>
                     </div>
@@ -258,13 +283,13 @@
                 </div>
                 <div onclick="viewMessage()" class="col-message chat-preview">
                   <div class="row no-gutters">
-                    <div class="col-auto pad-5 d-flex align-items-center justify-content-center">
+                    <div class="col-3 d-flex align-items-center justify-content-center">
                       <center><img src="user.png"></center>
                     </div>
-                    <div class="col-8 pad-10">
+                    <div class="col">
                       <br>
                       <div class="w-100"></div>
-                      <div class="d-flex justify-content-between" >
+                      <div class="d-flex justify-content-between">
                         <strong><span style="font-size:medium;">User_0001</span></strong>
                       </div>
                       <div class="w-100"></div>
@@ -272,7 +297,7 @@
                       <div class="w-100"></div>
                       
                     </div>
-                    <div class="col-auto" >
+                    <div class="col-auto">
                       <br>
                       <div class="w-100"></div>
                       <div class="d-flex justify-content-end">
@@ -280,7 +305,8 @@
                       </div>
                       <div class="w-100"></div>
                       <br>
-                      <div class="d-flex justify-content-center">
+                      <div class="w-100"></div>
+                      <div class="d-flex justify-content-center align-items-center">
                         <span class="badge badge-pill badge-info">1</span>  
                       </div>
                     </div>
