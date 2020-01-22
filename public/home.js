@@ -42,7 +42,11 @@ $("#confirm_btn1").click(function(){
   $("#submit_modal1").css("filter", "blur(2px)");  
 });
 
-$("#cancel_btn").click(function(){
+$("#cancel_btn1").click(function(){
+  $("#submit_modal1").css("filter", "blur(0)");  
+});
+
+$("#cancel_btn2").click(function(){
   $("#submit_modal1").css("filter", "blur(0)");  
 });
 
