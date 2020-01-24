@@ -27034,7 +27034,7 @@ function addReport(grp, cat) {
                 category: cat,
                 group: grp,
                 color: colors[0],
-                created: firebase.database.ServerValue.TIMESTAMP
+                created: firebase.firestore.FieldValue.serverTimestamp()
             });
             break;
         case 'Group 2':
@@ -27042,7 +27042,7 @@ function addReport(grp, cat) {
                 category: cat,
                 group: grp,
                 color: colors[1],
-                created: firebase.database.ServerValue.TIMESTAMP
+                created: firebase.firestore.FieldValue.serverTimestamp()
             });
             break;
         case 'Group 3':
@@ -27050,7 +27050,7 @@ function addReport(grp, cat) {
                 category: cat,
                 group: grp,
                 color: colors[2],
-                created: firebase.database.ServerValue.TIMESTAMP
+                created: firebase.firestore.FieldValue.serverTimestamp()
             });
             break;
     }
@@ -27064,7 +27064,7 @@ function addDetailedReport(grp, cat, details) {
                 group: grp,
                 color: colors[0],
                 details: details,
-                created: firebase.database.ServerValue.TIMESTAMP
+                created: firebase.firestore.FieldValue.serverTimestamp()
             });
             break;
         case 'Group 2':
@@ -27073,7 +27073,7 @@ function addDetailedReport(grp, cat, details) {
                 group: grp,
                 color: colors[1],
                 details: details,
-                created: firebase.database.ServerValue.TIMESTAMP
+                created: firebase.firestore.FieldValue.serverTimestamp()
             });
             break;
         case 'Group 3':
@@ -27082,7 +27082,7 @@ function addDetailedReport(grp, cat, details) {
                 group: grp,
                 color: colors[2],
                 details: details,
-                created: firebase.database.ServerValue.TIMESTAMP
+                created: firebase.firestore.FieldValue.serverTimestamp()
             });
             break;
     }
