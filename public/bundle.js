@@ -26927,8 +26927,8 @@ $(document).ready(function() {
       var query = users.where("username", "==", username).where("password", "==", password).get()
       .then(function(querySnapshot) {
         if(!querySnapshot.empty) {
-            var home_url ="http://localhost:5000/home.html"
-            var admin_url ="http://localhost:5000/statistics.html"
+            var home_url ="https://sakura-test-ea29e.firebaseapp.com/home.html"
+            var admin_url ="https://sakura-test-ea29e.firebaseapp.com/statistics.html"
             querySnapshot.forEach(function(doc) {
                 if(doc.data().type == "user") {
                     $(location).attr('href', home_url);
@@ -26950,22 +26950,66 @@ $(document).ready(function() {
 
         var group;
         var category;
+        var where = $('#where').val().trim();
+        var how = $('#how').val().trim();
+        var often = $('#how_often').val().trim();
+        var more = $('#more_details').val().trim();
+        var detailed = "Where: "+where+"\n How: "+how+"\n How often: "+often+"\n Details: "+more;
         var cookie_data = document.cookie.split(';');
         if(cookie_data[0].includes('group_value')) {
             var temp = cookie_data[0].split('=');
             group = temp[1].replace('%20', ' ');
             var temp_2 = cookie_data[1].split('=');
             category = temp_2[1];
-            addReport(group, category);
+            if(where != '' || how != '' || often != '' || more != '') {
+                console.log(detailed);
+                addDetailedReport(group, category, detailed);
+            } else {
+                addReport(group, category);
+            }
         } else {
             var temp = cookie_data[1].split('=');
             group = temp[1].replace('%20', ' ');
             var temp_2 = cookie_data[0].split('=');
             category = temp_2[1];
-            addReport(group, category);
+            if(where != '' || how != '' || often != '' || more != '') {
+                console.log(detailed);
+                addDetailedReport(group, category, detailed);
+            } else {
+                addReport(group, category);
+            }
         }
+
+        $('#submit_modal').modal('hide');
     });
 });
+
+//dashboard counters
+async function counters() {
+    var num_groups;
+    await db.collection('groups').get().then(function(snapshot) {
+        num_groups = snapshot.size;
+    });
+    $('#group_count').append(num_groups);
+
+    var num_reps;
+    await db.collection('reports').get().then(function(snapshot) {
+        num_reps = snapshot.size;
+    });
+    $('#report_num').append(num_reps);
+
+    var unique_reports;
+    await db.collection('reports').where('details','>','').get().then(function(snapshot) {
+        unique_reports = snapshot.size;
+    });
+    $('#detailed_reports').append(unique_reports);
+
+    var num_users;
+    await db.collection('users').get().then(function(snapshot) {
+        num_users = snapshot.size;
+    });
+    $('#users').append(num_users);
+}
 
 function deselectBtn(e){
     var button = document.getElementsByClassName('categories');
@@ -26978,7 +27022,7 @@ function deselectBtn(e){
 
 $('#logout_link').click(function() {
       document.cookie ='group_value=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      var landing_page = "http://localhost:5000/"
+      var landing_page = "https://sakura-test-ea29e.firebaseapp.com/"
       $(location).attr('href', landing_page);
 });
 
@@ -26989,21 +27033,56 @@ function addReport(grp, cat) {
             db.collection('reports').add({
                 category: cat,
                 group: grp,
-                color: colors[0]
+                color: colors[0],
+                created: firebase.database.ServerValue.TIMESTAMP
             });
             break;
         case 'Group 2':
             db.collection('reports').add({
                 category: cat,
                 group: grp,
-                color: colors[1]
+                color: colors[1],
+                created: firebase.database.ServerValue.TIMESTAMP
             });
             break;
         case 'Group 3':
             db.collection('reports').add({
                 category: cat,
                 group: grp,
-                color: colors[2]
+                color: colors[2],
+                created: firebase.database.ServerValue.TIMESTAMP
+            });
+            break;
+    }
+}
+
+function addDetailedReport(grp, cat, details) {
+    switch(grp) {
+        case 'Group 1':
+            db.collection('reports').add({
+                category: cat,
+                group: grp,
+                color: colors[0],
+                details: details,
+                created: firebase.database.ServerValue.TIMESTAMP
+            });
+            break;
+        case 'Group 2':
+            db.collection('reports').add({
+                category: cat,
+                group: grp,
+                color: colors[1],
+                details: details,
+                created: firebase.database.ServerValue.TIMESTAMP
+            });
+            break;
+        case 'Group 3':
+            db.collection('reports').add({
+                category: cat,
+                group: grp,
+                color: colors[2],
+                details: details,
+                created: firebase.database.ServerValue.TIMESTAMP
             });
             break;
     }
@@ -27040,18 +27119,18 @@ async function getStats() {
     var data = [];
     for(var i = 0; i < groups.length; i++) {
         for(var j = 0; j < categories.length; j++) {
-        var num_reports = await db.collection('reports').where("group", "==", groups[i]).where("category", "==", categories[j]);
-        var count;
-        var query = await num_reports.get().then(function(snapshot) {
-            count = snapshot.size;
-            var current = groups[i];
-            
-            data.push({
-                group: groups[i],
-                category: categories[j],
-                amount: count
+            var num_reports = await db.collection('reports').where("group", "==", groups[i]).where("category", "==", categories[j]);
+            var count;
+            var query = await num_reports.get().then(function(snapshot) {
+                count = snapshot.size;
+                var current = groups[i];
+                
+                data.push({
+                    group: groups[i],
+                    category: categories[j],
+                    amount: count
+                });
             });
-        });
         }
     }
     return data;
@@ -27207,7 +27286,7 @@ function reportTemplate(reportList) {
 
 async function getReports() {
     var r = [];
-    var category_query = await db.collection('reports').where('details','>','').get()
+    var category_query = await db.collection('reports').where('details','>','').orderBy('created', 'desc').get()
     .then(function(snapshot) {
         snapshot.forEach(function(doc) {
             r.push({
@@ -27239,6 +27318,7 @@ window.addEventListener("load", () => {
         console.log('refresh');
     });
     displayReportList();
+    counters();
     drawVisualization();
     document.getElementById("mygraph").childNodes[0].childNodes[1].style.width = '630px';
     drawVisualization();

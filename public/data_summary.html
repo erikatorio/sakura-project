@@ -5,6 +5,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <link rel="stylesheet" href="data.css">
 	<link rel="stylesheet" href="loading.css">
+	<link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="favicon.png">
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
@@ -61,11 +62,6 @@
 	  <div class="loader">
 	  </div>
 	</div>
-	<div class="progress-bar">
-		<span class="bar">
-		  <span class="progress"></span>
-		</span>
-	  </div>
 
 <!-- scripts -->
 <script>
@@ -92,8 +88,7 @@
 
   function progressBar(){
 	  setTimeout(function() {
-		$('.progress-bar').css('display', 'none');
-		console.log('progress bar hidden');
+		$('#shape').css('display', 'none');
 	  }, 25000);
   }
 

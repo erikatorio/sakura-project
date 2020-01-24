@@ -206,3 +206,11 @@ background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); }
 .unread{
     background-color: #f5f2f7;
 }
+
+.pad-5{
+    padding-left:5px;
+}
+
+.pad-10{
+    padding-left:10px;
+}
