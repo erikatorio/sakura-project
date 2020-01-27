@@ -6,17 +6,34 @@
     min-width: 380px !important;
 }
 
+#refresh_btn{
+    background: url('refresh.png') center no-repeat;
+    background-size: 60%;
+    height:40px;
+    width:40px;
+}
 #chat-btn{
     background: url('send.png') center no-repeat;
-    background-size: 50%;
+    background-size: 60%;
     height: 50px;
     width: 64px;
+}
+.no-border-btn{
     border:none;
     background-color: white;
 }
+.no-border-btn:hover{
+    box-shadow:none;
+    background-size: 50% !important;
+}
+.no-border-btn:focus{
+    box-shadow:none;
+}
+
 #chat-btn:hover {
-  box-shadow:none;
-  background-color: #EBD2B4;
+    box-shadow:none;
+    background-size: 50%;
+    /*background-color: #EBD2B4;*/
 }
 #chat-btn:focus{
     box-shadow:none;
@@ -24,8 +41,8 @@
 
 textarea:focus{
     box-shadow: none !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
     border:none;
     outline:none;
 }
@@ -125,7 +142,7 @@ border-radius: 10px;
 -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 background-image: -webkit-gradient(linear, left bottom, left top, from(#a8edea), to(#fed6e3));
 background-image: -webkit-linear-gradient(bottom, #a8edea 0%, #fed6e3 100%);
-background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); }
+background-image: linear-gradient(to top, #fed6e3 0%, #a8edea 100%); }
 
 
 
@@ -210,7 +227,6 @@ background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%); }
 .pad-5{
     padding-left:5px;
 }
-
 .pad-10{
     padding-left:10px;
 }
