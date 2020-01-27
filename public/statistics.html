@@ -33,14 +33,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a style="cursor: pointer;" title="Summary" class="nav-link" href="https://sakura-test-ea29e.firebaseapp.com/data_summary.html"><i class="fas fa-file fa-lg"></i> Summary</a>
-          </li>
+            <a style="cursor: pointer;" title="Chat" onclick="showChat()" class="nav-link" href="#"><img src="chat.png">&nbsp;&nbsp;Chat</a>
+            </li>
           <li class="nav-item">
-            <a style="cursor: pointer;" title="Chat" onclick="showChat()" class="nav-link" href="#"><i class="fas fa-comments fa-lg"></i> Chat</a>
-          </li>
-          <li class="nav-item">
-            <a style="cursor: pointer;" title="Logout" class="nav-link" id="logout_link"><i class="fas fa-sign-out-alt fa-lg"></i> Logout</a>
-          </li>
+            <a style="cursor: pointer;" title="Logout" class="nav-link" id="logout_link">&nbsp;<img src="logout.png">&nbsp;Logout</a>
+            </li>
         </ul>
     </div>
   </nav>
@@ -79,21 +76,27 @@
           </div>
         </div>
     </div>
-    <div class="row" >         
-        <div class="col-lg-6 ">
+    <div class="row" >
+      <div class="col-lg-6 ">
           <div class="card card-dash ">
-            <div class="card-body overall" style="position:relative">
-              <h5 class="card-title">Overall Statistics</h5>
+            <div class="card-body overall shadow-sm bg-white rounded" style="position:relative">
+              <div class="card-title row" >
+                <h5 class="col-6">Overall Statistics</h5>
+                <div class="d-flex justify-content-end col" >
+                  <button id="refresh_btn" type="button" class="btn no-border-btn"></button>
+                </div>
+              </div>
               <div id="mygraph" style="position:absolute; left:0;">
                 <div class="row" id="shape2">
                   <div class="loader">
                   </div>
                 </div>
               </div>
-              
             </div>
-            <div class="card-footer align-self-end" id="legend">
-                <button id="refresh_btn" type="button" class="btn no-border-btn"><img src="refresh.png" id="refresh_img" class="float-right "/></button>
+            <div class="card-footer" id="legend">
+              <a href="https://sakura-test-ea29e.firebaseapp.com/data_summary.html">
+              <button class="btn btn-primary btn-sm float-right" type="button">View Summary</button>
+            </a>
             </div>
           </div>
         </div>
@@ -114,89 +117,45 @@
   </div>
 </div>
 <!-- Chat Container-->
-<div id="chat-container" >
-  <div class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <button type="button" id="back-btn" onclick="back()" class="btn btn-info"></button>
-      <svg style="display:none" id="user-chat" class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
-        <rect fill="#007aff" width="100%" height="100%" />
-      </svg>
-      <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    <div style="display:none" id="admin-search">
-      <div class="input-group mb-3 row no-gutters">
-        <input type="text" id="searcharea-message" class="form-control" placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button type="button" id="search-btn" class="btn btn-info"></button>
-        </div>
-      </div>
-      <div id="user-list" class="toast-body row no-gutters d-flex justify-content-center scrollbar scrollbar-rare-wind">
-        <!--list of chat from users-->
-
-      </div>
-    </div>
-    <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind" style="background-color: #F5F5F5">
-      <div class="announcement">
-          <!-- <span>Previous messages have been deleted.</span> -->
-          <span>Start messaging.</span>
-      </div>
-      <br>
-      <!--admin message sample-->
-      <div class="d-flex justify-content-between">
-        <span class="badge badge-pill" id="admin-name">Admin<br></span>
-        <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-      </div>
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col">
-            <div id="message_display" class="text-wrap"><p>
-            This is a message.</p>
+        <div id="chat-container" >
+          <div id="chat-toast" class="toast" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <button style="display:none"  type="button" id="back-btn" onclick="back()" class="btn btn-info"></button>
+              <svg id="user-chat" class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <rect fill="#007aff" width="100%" height="100%" />
+              </svg>
+              <strong id="chat-title" class="mr-auto">&nbsp;Chat</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
-          </div>
-        </div>
-      </div>
-      <!--user message sample-->
-      <div class="d-flex justify-content-between">
-        <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <span class="badge badge-pill" id="user-name">You<br></span>
-      </div>
-      <div class="card  mb-3">
-        <div class="row no-gutters">
-          <div class="col">
-            <div id="message_display" class="text-wrap"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam laoreet at metus at cursus. Etiam metus augue, luctus non mi ac, molestie sodales quam. Mauris nec turpis varius, facilisis urna ut, convallis neque. Curabitur blandit libero eu est pretium, eget pulvinar augue rutrum. Ut in est tincidunt, lobortis mi ut, dictum lorem. Pellentesque in leo semper, pretium diam non, ultrices elit. :(</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--user message sample-->
-      <div class="d-flex justify-content-between">
-        <span class="timestamp text-muted">01/21/2020 9:56AM</span>
-        <span class="badge badge-pill" id="user-name">You<br></span>
-      </div>
-      <div class="card  mb-3">
-        <div class="row no-gutters">
-          <div class="col">
-            <div id="message_display" class="text-wrap"><p>:(</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="chat-footer" class="form-group row no-gutters" style="display:none;height:50px!important;background-color: red">
-       <textarea class="form-control textarea col-10 scrollbar scrollbar-rare-wind"  rows="1" cols="3" disabled></textarea>
-          <button type="button" disabled class="col-2 btn btn-info"></button>
-    </div>
-         <div id="send-message" class="form-group row no-gutters">
-          <textarea class="form-control col-10 scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1" cols="3" placeholder="Type a message" ></textarea>
-          <button type="button" id="chat-btn" onclick="sendMessage()" class="col-2 btn btn-info"></button>
-        </div>
-  </div>
 
-</div>
+            <div id="admin-search">
+              <div class="input-group mb-3 row no-gutters">
+                <input type="text" id="searcharea-message" class="form-control" placeholder="Search user..." aria-label="Search user..." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button type="button" id="search-btn" class="btn btn-info"></button>
+                </div>
+              </div>
+              <div id="user-list" class="toast-body row no-gutters d-flex justify-content-center scrollbar scrollbar-rare-wind">
+                <!--list of chat from users-->
+
+              </div>
+            </div>
+            <div id="message-container" class="toast-body scrollbar scrollbar-rare-wind" style="display:none;background-color: #F5F5F5">
+              
+            </div>
+            <div id="chat-footer" class="form-group row no-gutters" style="display:inline;height:50px!important;background-color: red">
+               <textarea class="form-control textarea col-10 scrollbar scrollbar-rare-wind"  rows="1" cols="3" disabled></textarea>
+                  <button type="button" disabled class="col-2 btn btn-info"></button>
+            </div>
+                 <div id="send-message" style="display:none;" class="form-group row no-gutters">
+                  <textarea class="form-control col-10 scrollbar textarea scrollbar-rare-wind" id="textarea-message" rows="1" cols="3" placeholder="Type a message" ></textarea>
+                  <button type="button" id="chat-btn" onclick="sendMessage()" style="display:none;" class="col-2 no-border-btn btn btn-info"></button>
+                </div>
+          </div>
+
+        </div>
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -205,11 +164,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <script>
-  window.onload = loadingGraph;
-  function showChat(){
-        $('.toast').toast('show');
-      }
-  function viewMessage(){
+      function viewMessage(name){
         $('#admin-search').css('display','none');
         $('#chat-footer').css('display','none');
         $('#user-chat').css('display','none');
@@ -217,9 +172,17 @@
         $('#message-container').css('display','block');
         $('#send-message').css('display','');
         $('#back-btn').css('display','inline');
+
+        $('#chat-title').html('&nbsp;'+name);
+
+        setToRead();
+        displayMessages();
       }
 
-   function back(){
+
+      function back(){
+        $('#user-list').html('');
+        $('#message-container').html('<div class="announcement"><span>Start messaging.</span></div><br>');
         $('#message-container').css('display','none');
         $('#send-message').css('display','none');
         $('#back-btn').css('display','none');
@@ -227,9 +190,122 @@
         $('#admin-search').css('display','inline');
         $('#chat-footer').css('display','inline');
         $('#user-chat').css('display','inline');
+        $('#chat-title').html('&nbsp;Chat');
+        displayMessagePreviews();
+      }
 
+      //for admin only
+      function displayMessagePreviews(){
+        //recommend: for loop all the users for now, implement the get by 5 in the future
+        //if possible, sort all users based on the recent message's timestamp and if is_read == false
+
+        //sample acquired users that are not admin
+        //assumed that these are usernames
+        var users = ["Barry", "Kara","Nini","Ricky"];
+
+        //for each user, get the latest message regardless if it's from the admin or from the user
+        //get the data of the recent message
+        var recent_message = "this is the recent message";
+        var recent_timestamp = "Jan 23";
+        var is_read = false; //or true, for UI purposes
+
+
+        //if no messages or if the recent message's is_deleted == true
+        //set recent_message = "No messages.";
+        //timestamp = "";
+
+        for(var i = 0; i<4;i++){
+          $('#user-list').append('<div onclick="viewMessage(\''+users[i]+'\')" class="col-message chat-preview"><div class="row no-gutters"><div class="col-auto pad-5 d-flex align-items-center justify-content-center"><center><img src="user.png"></center></div><div class="col-8 pad-10"><br><div class="w-100"></div><div class="d-flex justify-content-between" ><strong><span style="font-size:medium;">'+users[i]+'</span></strong></div><div class="w-100"></div><small class="text-muted text-truncate">'+recent_message+'</small><div class="w-100"></div></div><div class="col-auto" ><br><div class="w-100"></div><div class="d-flex justify-content-end"><small class="text-muted">'+recent_timestamp+'</small></div><div class="w-100"></div><br><div class="d-flex justify-content-center"><span class="badge badge-pill badge-info">!</span></div></div></div></div>');
+        }
+      }
+
+      function searchUser(){
+        //$('#user-list').append('No messages yet.');
+      }
+
+      function setToRead(){
+        //set all the is_read == true for that message correspondence
 
       }
+      //in the case that user and admin have the chat open during the conversation
+      //there should be a checker if they have the chat open.
+
+      function displayMessages(){
+        //check if user is logged in
+        //if user, just retrieve the messages 
+        
+        //if admin is logged in, retrieve the value of id=chat-title
+        //because it will contain either a simple title or the username of
+        //the selected chat log to view
+
+        //example below is if user is logged in
+        //in the case that admin is logged in and is_admin == false
+        //sender will have the value of the username of the chosen user
+
+        for(var i = 0;i<3;i++){
+          //if message is_deleted == true, skip
+          //if message is_read == false, change the value to true
+          //if is_admin == true:
+          var sender = document.getElementById("chat-title").innerHTML;
+          //if is_admin == false:
+          //var sender = "You"
+
+          //retrieve message and timestamp first
+          var message = "this is the message."
+          var timestamp = "01/23/2020 10:56AM";
+
+          $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="user-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message+'</p></div></div></div></div>');
+        }
+        for(var i = 0;i<3;i++){
+          //if message is_deleted == true, skip
+          //if message is_read == false, change the value to true
+          //if is_admin == true:
+          var sender = "You";
+          //if is_admin == false:
+          //var sender = "You"
+
+          //retrieve message and timestamp first
+          var message = "this is the message from you."
+          var timestamp = "01/23/2020 10:56AM";
+
+          $('#message-container').append('<div class="d-flex justify-content-between"><span class="badge badge-pill" id="admin-name">'+sender+'<br></span><span class="timestamp text-muted">'+timestamp+'</span></div><div class="card mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message+'</p></div></div></div></div>');
+        }
+        autoScrollToBottom();
+      }
+
+      function autoScrollToBottom(){
+        $("#message-container").animate({ 
+          scrollTop: $('#message-container').get(0).scrollHeight 
+        }, 1000); 
+      }
+      
+      function sendMessage(){
+        var message =   $('textarea#textarea-message').val().trim();
+        if(message != ""){
+          $('#textarea-message').val('');
+          appendMessage(message);
+        }
+        autoScrollToBottom();
+        //add to database
+      }
+
+      function appendMessage(message){
+        //if user, check if received or sending
+        //if admin, check if receeived or sending and who is
+        //the user/chatbox owner
+        var sender = "You";
+
+        //get current timestamp
+        var timestamp = "01/23/2020 10:56AM"
+        $('#message-container').append('<div class="d-flex justify-content-between"><span class="timestamp text-muted">'+timestamp+'</span><span class="badge badge-pill" id="user-name">'+sender+'<br></span></div><div class="card  mb-3"><div class="row no-gutters"><div class="col"><div id="message_display" class="text-wrap"><p>'+message+'</p></div></div></div></div>');
+        
+      }
+  window.onload = loadingGraph;
+  function showChat(){
+        $('#chat-toast').toast('show');
+        displayMessagePreviews();
+      }
+  
   function loadingGraph(){
     setTimeout(function(){
       $("#shape2").css("display", 'none');
