@@ -26944,9 +26944,6 @@ $(document).ready(function() {
   });
 
     $('#confirm_btn').click(function() {
-        var info = document.getElementById("report_sent");
-        info.style.display = "block";
-        setTimeout(function(){$('#report_sent').fadeOut();}, 2000);
 
         var group;
         var category;
@@ -26965,6 +26962,7 @@ $(document).ready(function() {
                 console.log(detailed);
                 addDetailedReport(group, category, detailed);
             } else {
+                console.log("not detailed");
                 addReport(group, category);
             }
         } else {
@@ -26976,11 +26974,12 @@ $(document).ready(function() {
                 console.log(detailed);
                 addDetailedReport(group, category, detailed);
             } else {
+                console.log("not detailed");
                 addReport(group, category);
             }
         }
 
-        $('#submit_modal').modal('hide');
+        $("#submit_modal .close").click().fadeOut();
         var button = document.getElementsByClassName('categories');
     
         for (var i = 0; i < button.length; i++) {
@@ -27104,8 +27103,8 @@ function newReportNotif() {
         var time = new Date();
         var notif_type = "Chat/Report";
         var notif_message = "A new report has been submitted."; //"Message for the notif here";
-        notif_container.innerHTML = '<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000"><div class="toast-header"><svg class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#007aff" width="100%" height="100%" /></svg><strong class="mr-auto">'+notif_type+'!</strong><small class="text-muted">'+time+'</small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div><div class="toast-body">'+notif_message+'</div></div>'
-        $('.toast').toast('show');
+        notif_container.innerHTML = '<div id="notif-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000"><div class="toast-header"><svg class="rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><rect fill="#007aff" width="100%" height="100%" /></svg><strong class="mr-auto">'+notif_type+'!</strong><small class="text-muted">'+time+'</small><button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button> </div><div class="toast-body">'+notif_message+'</div></div>'
+        $('#notif-toast').toast('show');
     });
 }
 var groups = [];
@@ -27319,7 +27318,7 @@ async function displayReportList(){
 window.addEventListener("load", () => {
     displayCategories();
     newReportNotif();
-    $('.toast').toast('show');
+    $('#notif-toast').toast('show');
     $('#refresh_btn').click(function() {
         //drawVisualization();
         location.reload(true);
