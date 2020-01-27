@@ -7,6 +7,11 @@
 	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+	<!-- PWA icons for iOS -->
+	<link rel="apple-touch-icon" href="sakura1.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="sakura1.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="sakura1.png">
+	<link rel="apple-touch-icon" sizes="167x167" href="sakura1.png">
 	
 	<link rel="icon" type="image/png" href="favicon.png">
 	<link rel="manifest" href="manifest.json">
@@ -19,6 +24,8 @@
 	<link rel="stylesheet" href="chat.css">
 	<script src="jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'>
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -103,12 +110,12 @@
 			<div class="modal-dialog modal-dialog-centered" role="document">
 				  <div class="modal-content">
 				   <div class="modal-header">
-					   Confirm submission of report? <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					   Confirm submission of report? <button id="cancel_btn1" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					 </div>
 					 <div class="modal-body">			        
 					 </div>
 					 <div class="modal-footer">
-					   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					   <button id="cancel_btn2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</buttonid=>
 					   <button id="confirm_btn" type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
 					 </div>
 			   </div>
@@ -116,7 +123,7 @@
 	   </div>
 		<!-- Category Description -->
 		<div class="row" id="sec_div">
-		    <div class="col description" id="report_desc"></div>		    
+		    <div style="text-align: justify;" class="col description" id="report_desc"></div>		    
 		</div>
 	</div>
 	<!-- Chat Container-->
@@ -192,7 +199,7 @@
 		}
   </script>
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 

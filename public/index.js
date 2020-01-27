@@ -64,9 +64,6 @@ $(document).ready(function() {
   });
 
     $('#confirm_btn').click(function() {
-        var info = document.getElementById("report_sent");
-        info.style.display = "block";
-        setTimeout(function(){$('#report_sent').fadeOut();}, 2000);
 
         var group;
         var category;
@@ -85,6 +82,7 @@ $(document).ready(function() {
                 console.log(detailed);
                 addDetailedReport(group, category, detailed);
             } else {
+                console.log("not detailed");
                 addReport(group, category);
             }
         } else {
@@ -96,11 +94,12 @@ $(document).ready(function() {
                 console.log(detailed);
                 addDetailedReport(group, category, detailed);
             } else {
+                console.log("not detailed");
                 addReport(group, category);
             }
         }
 
-        $('#submit_modal').modal('hide');
+        $("#submit_modal .close").click().fadeOut();
         var button = document.getElementsByClassName('categories');
     
         for (var i = 0; i < button.length; i++) {
