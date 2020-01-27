@@ -26981,6 +26981,15 @@ $(document).ready(function() {
         }
 
         $('#submit_modal').modal('hide');
+        var button = document.getElementsByClassName('categories');
+    
+        for (var i = 0; i < button.length; i++) {
+            button[i].classList.remove('active');
+        }
+        document.getElementById("submit_btn").disabled = true;
+
+        var x = document.getElementById("report_desc");
+        x.style.display = 'none';
     });
 });
 
@@ -27214,7 +27223,6 @@ async function drawVisualization() {
         color+=1;
     }
 
-var category = ["A","B","C","D"];
 var cat_count = 0;
   // specify options
   var options = {
@@ -27286,7 +27294,7 @@ function reportTemplate(reportList) {
 
 async function getReports() {
     var r = [];
-    var category_query = await db.collection('reports').where('details','>','').orderBy('created', 'desc').get()
+    var category_query = await db.collection('reports').where('details','>','').get()
     .then(function(snapshot) {
         snapshot.forEach(function(doc) {
             r.push({

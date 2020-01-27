@@ -63,12 +63,12 @@ button[id^='category_']:hover {
 	font-size: 16px;
 }
 
-#report_sent{
-	display: none;
-	width: 20%;
-	float: right;
-	margin-right: -5%;
-	margin-top: -6%;
+form{
+	padding: 5px;
+}
+
+#confirm_btn, #submit_btn2{
+	background-color: #627ca6;
 }
 
 /* MOBILE */
